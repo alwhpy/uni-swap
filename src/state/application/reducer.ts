@@ -6,7 +6,8 @@ import {
   updateBlockNumber,
   ApplicationModal,
   setOpenModal,
-  updateThemeMode
+  updateThemeMode,
+  setChainGasPrice
 } from './actions'
 import { PaletteMode } from '@mui/material'
 import { DEFAULT_THEME } from '../../constants'
@@ -18,13 +19,15 @@ export interface ApplicationState {
   readonly popupList: PopupList
   readonly openModal: ApplicationModal | null
   readonly themeModel: PaletteMode
+  readonly chainGasPrice: string | null
 }
 
 const initialState: ApplicationState = {
   blockNumber: {},
   popupList: [],
   openModal: null,
-  themeModel: DEFAULT_THEME
+  themeModel: DEFAULT_THEME,
+  chainGasPrice: null
 }
 
 export default createReducer(initialState, builder =>
@@ -60,5 +63,8 @@ export default createReducer(initialState, builder =>
     .addCase(updateThemeMode, (state, action) => {
       const { themeModel } = action.payload
       state.themeModel = themeModel
+    })
+    .addCase(setChainGasPrice, (state, { payload }) => {
+      state.chainGasPrice = payload?.toString() || null
     })
 )

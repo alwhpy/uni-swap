@@ -19,7 +19,7 @@
   "prettier.tabWidth": 2,
   "[typescriptreact]": {
     // "editor.defaultFormatter": "esbenp.prettier-vscode"
-    "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "workbench.colorCustomizations": {
     "activityBar.background": "#06351E",

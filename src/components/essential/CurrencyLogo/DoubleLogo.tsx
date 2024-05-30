@@ -11,8 +11,8 @@ const Wrapper = styled('div')({
 interface DoubleCurrencyLogoProps {
   margin?: boolean
   size?: number
-  currency0?: Currency
-  currency1?: Currency
+  currency0?: Currency | string
+  currency1?: Currency | string
 }
 
 export default function DoubleCurrencyLogo({
@@ -23,20 +23,15 @@ export default function DoubleCurrencyLogo({
 }: DoubleCurrencyLogoProps) {
   return (
     <Wrapper sx={{ marginRight: margin ? (size / 3 + 8).toString() + 'px' : undefined }}>
-      {currency0 && (
-        <CurrencyLogo currency={currency0} size={size.toString() + 'px'} style={{ zIndex: 2, background: '#ffffff' }} />
-      )}
-      {currency1 && (
-        <CurrencyLogo
-          currency={currency1}
-          size={size.toString() + 'px'}
-          style={{
-            background: '#ffffff',
-            position: 'absolute',
-            left: `${(size / 2).toString() + 'px'} !important`
-          }}
-        />
-      )}
+      <CurrencyLogo currencyOrAddress={currency0} size={size.toString() + 'px'} style={{ zIndex: 2 }} />
+      <CurrencyLogo
+        currencyOrAddress={currency1}
+        size={size.toString() + 'px'}
+        style={{
+          position: 'relative',
+          zIndex: 9
+        }}
+      />
     </Wrapper>
   )
 }

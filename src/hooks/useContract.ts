@@ -6,13 +6,14 @@ import ERC721_ABI from 'abis/erc721.json'
 import ERC1155_ABI from 'abis/erc1155.json'
 import MulticallABI from 'abis/multicall.json'
 import ERC20_BYTES32_ABI from 'abis/erc20_bytes32.json'
-import { EnsPublicResolver, EnsRegistrar, Erc20, Erc721, Erc1155, Erc20_bytes32, Multicall } from 'abis/types'
+import { EnsPublicResolver, EnsRegistrar, Erc20, Erc721, Erc1155, Erc20_bytes32, Multicall, Box } from 'abis/types'
 import { ENS_REGISTRAR_ADDRESSES, MULTICALL_ADDRESS } from 'constants/addresses'
 import { useActiveWeb3React } from 'hooks'
 import { useMemo } from 'react'
 import { getContract } from 'utils/contract'
 import { RPC_PROVIDERS } from 'constants/rpc/providers'
 import { SupportedChainId } from 'constants/chains'
+import boxABI from 'abis/box.json'
 
 // returns null on errors
 export function useContract<T extends Contract = Contract>(
@@ -68,4 +69,7 @@ export function useBytes32TokenContract(tokenAddress?: string, withSignerIfPossi
 
 export function useInterfaceMulticall(chainId?: SupportedChainId) {
   return useContract<Multicall>(MULTICALL_ADDRESS, MulticallABI, false, chainId)
+}
+export function useBoxContract(boxAddress?: string, chainId?: SupportedChainId) {
+  return useContract<Box>(boxAddress, boxABI, true, chainId)
 }

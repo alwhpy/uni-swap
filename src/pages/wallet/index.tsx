@@ -8,6 +8,7 @@ import { useCurrencyBalance, useToken } from 'hooks/useToken'
 import { CurrencyAmount } from 'constants/token'
 import { useAllTransactions } from 'state/transactions/hooks'
 import { Button } from '@mui/material'
+import { SupportedChainId } from 'constants/chains'
 
 export default function Wallet() {
   const { chainId } = useActiveWeb3React()
@@ -28,7 +29,7 @@ export default function Wallet() {
 
   return (
     <div>
-      <Button onClick={() => switchNetwork(1)}>switch chain</Button>
+      <Button onClick={() => switchNetwork(SupportedChainId.BB_MAINNET)}>switch chain</Button>
       <div>
         <Button onClick={approve}>approve</Button>
       </div>

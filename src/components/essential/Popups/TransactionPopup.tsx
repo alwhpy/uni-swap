@@ -4,6 +4,7 @@ import { Typography, Box } from '@mui/material'
 import { useActiveWeb3React } from 'hooks/'
 import { getEtherscanLink } from 'utils/getEtherscanLink'
 import { ExternalLink } from 'components/Global'
+import { SupportedChainId } from 'constants/chains'
 
 export default function TransactionPopup({
   hash,
@@ -33,7 +34,7 @@ export default function TransactionPopup({
       {chainId && hash && (
         <ExternalLink
           underline="always"
-          href={getEtherscanLink(chainId ? chainId : 1, hash, 'transaction')}
+          href={getEtherscanLink(chainId ? chainId : SupportedChainId.BIT_DEVNET, hash, 'transaction')}
           style={{ margin: '9px 32px' }}
         >
           View on explorer

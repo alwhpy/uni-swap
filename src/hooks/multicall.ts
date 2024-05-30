@@ -3,10 +3,10 @@ import { useActiveWeb3React } from 'hooks'
 import { useMemo } from 'react'
 import { useBlockNumber } from 'state/application/hooks'
 import multicall from 'state/multicall'
-
+import { SkipFirst } from 'views/swap/Widget2/types/tuple'
 export type { CallStateResult } from '@uniswap/redux-multicall' // re-export for convenience
 export { NEVER_RELOAD } from '@uniswap/redux-multicall' // re-export for convenience
-
+type SkipFirstTwoParams<T extends (...args: any) => any> = SkipFirst<Parameters<T>, 2>
 // Create wrappers for hooks so consumers don't need to get latest block themselves
 
 type MulticallParams<
@@ -51,4 +51,11 @@ function useCallContext(chainId?: number) {
 
   const latestBlock = useBlockNumber(queryChainId)
   return [queryChainId, latestBlock]
+}
+export function useMainnetSingleCallResult(
+  chainId: SupportedChainId | undefined,
+  ...args: SkipFirstTwoParams<typeof multicall.hooks.useSingleCallResult>
+) {
+  const latestMainnetBlock = useBlockNumber()
+  return multicall.hooks.useSingleCallResult(chainId, latestMainnetBlock, ...args)
 }

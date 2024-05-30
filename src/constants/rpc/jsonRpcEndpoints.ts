@@ -11,14 +11,15 @@ import { SUPPORT_NETWORK_CHAIN_IDS, SupportedChainId, SupportedChainsInfo } from
  * These "Safe" URLs are listed first, followed by other fallback URLs, which are taken from chainlist.org.
  */
 const CUSTOM_JSON_RPC_FALLBACK_ENDPOINTS: { [x in SupportedChainId]?: string[] } = {
-  [SupportedChainId.MAINNET]: [
-    // "Safe" URLs
-    'https://cloudflare-eth.com',
-    // "Fallback" URLs
-    'https://rpc.ankr.com/eth',
-    'https://eth-mainnet.public.blastapi.io'
-  ],
-  [SupportedChainId.SEPOLIA]: ['https://sepolia.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161']
+  // [SupportedChainId.MAINNET]: [
+  //   // "Safe" URLs
+  //   'https://cloudflare-eth.com',
+  //   // "Fallback" URLs
+  //   'https://rpc.ankr.com/eth',
+  //   'https://eth-mainnet.public.blastapi.io'
+  // ],
+  // [SupportedChainId.SEPOLIA]: ['https://sepolia.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161']
+  [SupportedChainId.BB_MAINNET]: ['https://fullnode-mainnet.bouncebitapi.com']
 }
 
 export const JSON_RPC_FALLBACK_ENDPOINTS: Record<SupportedChainId, string[]> = (() => {

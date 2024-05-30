@@ -24,3 +24,4 @@ export const addPopup = createAction<{ key?: string; removeAfterMs?: number | nu
 )
 export const removePopup = createAction<{ key: string }>('application/removePopup')
 export const updateThemeMode = createAction<{ themeModel: PaletteMode }>('application/updateThemeMode')
+export const setChainGasPrice = createAction<string | null>('application/setChainGasPrice')

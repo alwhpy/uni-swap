@@ -6,7 +6,7 @@ import { useActiveWeb3React } from '../../hooks'
 import { AppDispatch, AppState } from '../index'
 import { addTransaction, ITransactionCustomData, UserSubmittedProp } from './actions'
 import { TransactionDetails } from './reducer'
-
+import { Token } from '@uniswap/sdk-core'
 // helper that can take a ethers library transaction response and add it to the list of transactions
 export function useTransactionAdder(): (response: TransactionResponse, customData?: ITransactionCustomData) => void {
   const { chainId, account } = useActiveWeb3React()
@@ -66,11 +66,11 @@ export function isTransactionRecent(tx: TransactionDetails): boolean {
 }
 
 // returns whether a token has a pending approval transaction
-export function useHasPendingApproval(tokenAddress: string | undefined, spender: string | undefined): boolean {
+export function useHasPendingApproval(tokenAddress: Token | string | undefined, spender: string | undefined): boolean {
   const allTransactions = useAllTransactions()
   return useMemo(
     () =>
-      typeof tokenAddress === 'string' &&
+      (typeof tokenAddress === 'string' || typeof tokenAddress === 'object') &&
       typeof spender === 'string' &&
       Object.keys(allTransactions).some(hash => {
         const tx = allTransactions[hash]
@@ -80,7 +80,12 @@ export function useHasPendingApproval(tokenAddress: string | undefined, spender:
         } else {
           const approval = tx.approval
           if (!approval) return false
-          return approval.spender === spender && approval.tokenAddress === tokenAddress && isTransactionRecent(tx)
+          return (
+            approval.spender === spender &&
+            (approval.tokenAddress === tokenAddress ||
+              (typeof tokenAddress === 'object' && approval.tokenAddress === tokenAddress.address)) &&
+            isTransactionRecent(tx)
+          )
         }
       }),
     [allTransactions, spender, tokenAddress]
